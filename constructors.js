@@ -16,11 +16,6 @@
   this.cost = cost;
   this.description = description;
 
-  this.getDetails = function(){
-    var details = name + ': \n' + cost + '\n + description';
-    return details;
-  };
-
  }
 
   /**
@@ -30,7 +25,11 @@
    * @name getDetails
    * @return {string} details containing all of the spells information.
    */
-
+  Spell.prototype.getDetails = function(){
+    var details = this.name + ': \n' + this.cost + '\n' + this.description;
+    console.log(details);
+    return details;
+  };
 /**
  * A spell that deals damage.
  * We want to keep this code DRY (Don't Repeat Yourself).
@@ -55,6 +54,8 @@
  * @property {number} damage
  * @property {string} description
  */
+
+
 
 /**
  * Now that you've created some spells, let's create
