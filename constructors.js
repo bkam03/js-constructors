@@ -54,6 +54,15 @@
  * @property {number} damage
  * @property {string} description
  */
+ function DamageSpell (name, cost, damage, description){
+  this.damage = damage;
+
+  Spell.call(this, name, cost, description);  //invoke superconstructor
+ }
+
+ DamageSpell.prototype = Object.create(Spell.prototype, {
+  constructor: DamageSpell
+ });
 
 
 
