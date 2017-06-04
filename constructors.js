@@ -27,7 +27,6 @@
    */
   Spell.prototype.getDetails = function(){
     var details = this.name + ': \n' + this.cost + '\n' + this.description;
-    console.log(details);
     return details;
   };
 /**
@@ -58,7 +57,6 @@
   this.damage = damage;
 
   Spell.call(this, name, cost, description);  //invoke superconstructor
-  console.log(this);
  }
 
  DamageSpell.prototype = Object.create(Spell.prototype, {
@@ -91,6 +89,11 @@ function Spellcaster (name, health, mana){
   this.isAlive = true;
 }
 
+Spellcaster.prototype.getDetails = function (){
+  var details = name + '\n' + 'hp: ' + hp + '\n' + 'mana: ' + mana;
+  return details;
+};
+
   /**
    * @method inflictDamage
    *
@@ -101,8 +104,7 @@ function Spellcaster (name, health, mana){
    *
    * @param  {number} damage  Amount of damage to deal to the spellcaster
    */
-Spellcaster.prototype.inflictDamage =function (damage){
-  console.log(this.health);
+Spellcaster.prototype.inflictDamage = function (damage){
   if( this.health - damage < 0 ) {
     this.health = 0;
   } else {
@@ -162,20 +164,15 @@ Spellcaster.prototype.invoke = function(spell, target){
 
   if ( spell instanceof Spell ){
     isSufficientMana = this.mana >= spell.cost;
-    console.log('is Spell');
     if ( isDamageSpell && !(target instanceof Spellcaster) ) {
-      console.log('damage spell has no target');
     } else if ( isSufficientMana ){
-      console.log('there is enough mana');
       this.spendMana(spell.cost);
       isSuccessfulCast = true;
       if( isDamageSpell ) {
-        console.log('damage is done');
         target.inflictDamage(spell.damage);
       }
     }
   }
-  console.log(isSuccessfulCast,"\n\n");
   return isSuccessfulCast;
 };
 
