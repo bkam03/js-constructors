@@ -155,3 +155,40 @@ Spellcaster.prototype.spendMana = function (cost){
    * @param  {Spellcaster} target         The spell target to be inflicted.
    * @return {boolean}                    Whether the spell was successfully cast.
    */
+Spellcaster.prototype.invoke = function(spell, target){
+  var isDamageSpell = spell instanceof DamageSpell;
+  var isSufficientMana = false;
+  var isSuccessfulCast = false;
+
+  if ( spell instanceof Spell ){
+    isSufficientMana = this.mana >= spell.cost;
+    console.log('is Spell');
+    if ( isDamageSpell && !(target instanceof Spellcaster) ) {
+      console.log('damage spell has no target');
+    } else if ( isSufficientMana ){
+      console.log('there is enough mana');
+      this.spendMana(spell.cost);
+      isSuccessfulCast = true;
+      if( isDamageSpell ) {
+        console.log('damage is done');
+        target.inflictDamage(spell.damage);
+      }
+    }
+  }
+  console.log(isSuccessfulCast,"\n\n");
+  return isSuccessfulCast;
+};
+
+
+ /* if ( spell instanceof DamageSpell ){
+    if( !(target instanceof Spellcaster) ) {
+      return isSuccessfulCast;
+    }
+  } else if ( !( spell instanceof Spell ) ){
+    return isSuccessfulCast;
+  }
+
+  if( this.spendMana() ) {
+    target.inflictDamage(spell.damage);
+  }
+*/
